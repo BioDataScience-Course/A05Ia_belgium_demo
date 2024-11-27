@@ -19,7 +19,7 @@ L'office belge de statistique Statbel (<https://statbel.fgov.be/fr/propos-de-sta
 
 Les données issues du site de Statbel ont été exportées le 3 décembre 2023. Les données brutes ont été en partie remaniées dans le cadre de cet exercice. Les valeurs de démographie par catégorie n'ont pas été modifiées.
 
-L'analyse est réalisée avec le [logiciel R](https://www.r-project.org) (`r R.version.string`) dans la [SciViews Box 2023](https://www.sciviews.org/software/svbox/). [Saturn Cloud](https://saturncloud.io) (Linux Ubuntu 22.04) est utilisé pour exécuter le code et compiler la version finale de ce bloc-notes.
+L'analyse est réalisée avec le [logiciel R](https://www.r-project.org) (`r R.version.string`) dans la [SciViews Box 2024](https://www.sciviews.org/software/svbox/). [Saturn Cloud](https://saturncloud.io) (Linux Ubuntu 22.04) est utilisé pour exécuter le code et compiler la version finale de ce bloc-notes.
 
 # Analyses
 
@@ -36,7 +36,7 @@ SciViews::R(lang = "fr")
 
 Nous importons, combinons et remanions les différents jeux de données.
 
-<!-- Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en seul dans `pop_92`. -->
+<!-- Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_92`. -->
 
 ```{r pop92, record='RODFS', object='pop_92'}
 # Region Wallone
@@ -49,7 +49,7 @@ rb_92 <- ___
 pop_92 <- ___
 ```
 
-<!-- Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en seul dans `pop_10`. -->
+<!-- Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_10`. -->
 
 ```{r pop10, record='RODFS', object='pop_10'}
 # Region Wallone
@@ -81,7 +81,7 @@ pop <- ___
 
 Les données retravaillées se présentent comme suit :
 
-```{r datafinal}
+```{r datafinal, warning=FALSE}
 tabularise$headtail(pop)
 ```
 
@@ -93,7 +93,7 @@ L'augmentation de la population belge entre 1992 et 2023 est représentée ci-de
 
 <!--% Reproduisez à l'identique le graphique ci-dessus. -->
 
-```{r plot1, record='RNSTR', arg='labels,layers'}
+```{r plot1, record='RNCS'}
 ___
 ```
 
@@ -101,7 +101,7 @@ ___
 
 <!--% Reproduisez à l'identique le graphique ci-dessus. -->
 
-```{r plot2, record='RNSTR', arg='labels,layers'}
+```{r plot2, record='RNCS'}
 ___
 ```
 
@@ -110,9 +110,11 @@ ___
 ```{r plot2comment, output='asis'}
 select_answer(r"-{
 [] -  La population totale en Belgique a augmenté de plus de 15% en trois décénnies.
+
 [] -  Le nombre de femmes est plus élevé que le nombre d’hommes  en Région wallonne.
 [] -  Le nombre de femmes est plus faible que le nombre d’hommes  en Région wallonne.
 [] -  Le nombre de femmes et d’hommes est similaire en Région wallonne.
+
 [] -  L’augmentation au cours du temps du nombre de femmes est plus rapide que pour le nombre d’hommes.
 [] -  L’augmentation au cours du temps du nombre de femmes est plus lente que pour le nombre d’hommes . 
 [] -  L’augmentation au cours du temps du nombre de femmes et d’hommes est similaire.}-")
@@ -122,7 +124,7 @@ select_answer(r"-{
 
 <!--% Reproduisez à l'identique le graphique ci-dessus. -->
 
-```{r plot3, record='RNSTR', arg='labels,layers'}
+```{r plot3, record='RNCS'}
 ___
 ```
 
@@ -132,9 +134,11 @@ ___
 select_answer(r"-{
 [] -  Le nombre total de femmes et d’hommes est similaire dans les différentes régions.
 [] -  Ce graphique ne permet pas de déterminer si les hommes ou les femmes sont plus nombreux au total dans les différentes régions.
+
 [] - La région la plus peuplée est la Région flamande.
 [] - La région la plus peuplée est la Région wallonne.
 [] - La région la plus peuplée est la Région de Bruxelles-Capitale.
+
 [] - On retrouve des proportions relatives similaires d’hommes et de femmes dans les trois régions.
 [] - On retrouve des proportions relatives différentes entre les hommes et les femmes dans les trois régions. Il y a bien plus d’hommes que de femmes en Région flamande.
 [] - On retrouve des proportions relatives différentes entre les hommes et les femmes dans les trois régions. Il y a bien plus d’hommes que de femmes en Région wallonne.}-")
