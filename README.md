@@ -64,8 +64,8 @@ variés :
 - `bxl_2010-2023.xlsx` : Région de Bruxelles capitale à partir de 2010
 - `flamand_1992-2009.tsv.gz` : Région flamande de 1992 à 2009
 - `flamand_2010-2023.tsv.gz` : Région flamande à partir de 2010
-- `wallon_1992-2009.csv.xz` : Région wallonne de 1992 à 2009
-- `wallon_2010-2023.csv.xz` : Région wallonne à partir de 2010
+- `wallon_1992-2009.csv` : Région wallonne de 1992 à 2009
+- `wallon_2010-2023.csv` : Région wallonne à partir de 2010
 
 Un dictionnaire des données est également mis à votre disposition :
 
@@ -75,11 +75,18 @@ knitr::kable(data.io::read$csv2("data/region_meta.csv"))
 
 | variable | label | unites | type | niveaux | val. manquantes | commentaire |
 |:---|:---|:---|:---|:---|:---|:---|
-| groupe_d_ages | Catégorie d’âges | \- | facteur | “Moins de 18 ans” “De 18 à 64 ans” “65 ans et plus” | NA | Variable à trois niveaux |
-| region | Région | \- | facteur | dépend du fichier (voir commentaire) | NA | Attention : variable à un niveau. Exemple : “Région de Bruxelles-Capitale” |
-| sexe | Sexe | \- | facteur | “Femmes” “Hommes” | NA | Variable à deux niveaux |
-| nationalite | Nationalité | \- | facteur | “Belges” “non-Belges” | NA | Variable à deux niveaux |
+| groupe_d_ages | Catégorie d’âges | \- | facteur | ““Moins de 18 ans”” ““De 18 à 64 ans”” ““65 ans et plus”” | NA | Variable à trois niveaux |
+| region | Région | \- | facteur | dépend du fichier (voir commentaire) | NA | Attention : variable à un niveau. Exemple : ““Région de Bruxelles-Capitale”” |
+| sexe | Sexe | \- | facteur | ““Femmes”” ““Hommes”” | NA | Variable à deux niveaux |
+| nationalite | Nationalité | \- | facteur | ““Belges”” ““non-Belges”” | NA | Variable à deux niveaux |
 | population_au_1_janvier_XXXX | Nombre d’individus | \- | numérique | \- | NA | Dénombre la densité de population en l’an XXXX. |
 
 Les termes de la licence relative à ces données sont accessibles ici :
 <https://statbel.fgov.be/sites/default/files/files/opendata/Licence%20open%20data_FR.pdf>.
+
+## Utilisation de l’IA
+
+Dans le cadre de votre travail, vous avez le droit d’être aidé par
+l’intelligence artificielle. Le chatbot SciViews est disponible dans
+votre RStudio sur Saturn Cloud via l’addin Help. Il répond aux questions
+concernant le langage R, les statistiques et la science des données.

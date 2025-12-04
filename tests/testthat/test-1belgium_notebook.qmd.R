@@ -137,7 +137,7 @@ test_that("Chunks 'plot1' : reproduction à l'identique du premier graphique (nu
   # Observez attentivement le graphique à reproduire en partant de l'objet 'pop'
 })
 
-test_that("Chunks 'plot2' : reproduction à l'identique du second graphique (nuage de points) et interpétation", {
+test_that("Chunks 'plot2' & 'plot2comment' : reproduction à l'identique du second graphique (nuage de points) et interpétation", {
   expect_true(is_identical_to_ref("plot2"))
   # Le nuage de points n'est pas celui attendu.
   # Observez attentivement le graphique à reproduire en partant de l'objet 'pop'
@@ -151,7 +151,7 @@ test_that("Chunks 'plot2' : reproduction à l'identique du second graphique (nua
   # cette aide plus tard dans le travail de groupe ou les interrogations !
 })
 
-test_that("Chunks 'plot3' : reproduction à l'identique du troisième graphique (graphique en barres) et interpétation", {
+test_that("Chunks 'plot3' & 'plot3comment' : reproduction à l'identique du troisième graphique (graphique en barres) et interpétation", {
   expect_true(is_identical_to_ref("plot3"))
   # Le graphique en barres n'est pas celui attendu.
   # Observez attentivement le graphique à reproduire en partant de l'objet 'pop'

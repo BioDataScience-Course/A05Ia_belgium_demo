@@ -19,7 +19,7 @@ L'office belge de statistique Statbel (<https://statbel.fgov.be/fr/propos-de-sta
 
 Les données issues du site de Statbel ont été exportées le 3 décembre 2023. Les données brutes ont été en partie remaniées dans le cadre de cet exercice. Les valeurs de démographie par catégorie n'ont pas été modifiées.
 
-L'analyse est réalisée avec le [logiciel R](https://www.r-project.org) (`r R.version.string`) dans la [SciViews Box 2024](https://www.sciviews.org/software/svbox/). [Saturn Cloud](https://saturncloud.io) (Linux Ubuntu 22.04) est utilisé pour exécuter le code et compiler la version finale de ce bloc-notes.
+L'analyse est réalisée avec le [logiciel R](https://www.r-project.org) (`r R.version.string`) dans la [SciViews Box 2025](https://www.sciviews.org/software/svbox/). [Saturn Cloud](https://saturncloud.io) (Linux Ubuntu 22.04) est utilisé pour exécuter le code et compiler la version finale de ce bloc-notes.
 
 # Analyses
 
@@ -27,6 +27,9 @@ L'analyse est réalisée avec le [logiciel R](https://www.r-project.org) (`r R.v
 # Ceci est nécessaire pour les tests SDD, ne pas utiliser dans un "vrai" projet
 if (!"tools:tests" %in% search())
   source(here::here("tests/tools_tests.R"), attach(NULL, name = "tools:tests"))
+
+# Configure Knitr pour utiliser AGG comme périphérique graphique
+knitr::opts_chunk$set(dev = "ragg_png")
 
 # Configuration de l'environnement SciViews::R
 SciViews::R(lang = "fr")
@@ -36,33 +39,35 @@ SciViews::R(lang = "fr")
 
 Nous importons, combinons et remanions les différents jeux de données.
 
-<!-- Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_92`. -->
+<!--% Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale en utilisant la focntion read() du package {data.io}. Fusionnez ensuite ces trois tableaux en un seul dans `pop_92`. Note : L'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
+
+<!--# Avant chaque fusion de tableaux, vous devez avoir pris connaissance des variables des tableaux à combiner. Il est également important d’avoir une idée claire du tableau final souhaité. Cela vous permettra de choisir si la meilleure solution est l’empilement (bind_***_()) ou la fusion (***_join_()).-->
 
 ```{r pop92, record='RODFS', object='pop_92'}
 # Region Wallone
-rw_92 <- ___
+rw_92 <- ___(___, encoding = "UTF-8")
 # Région Flamande
-rf_92 <- ___
+rf_92 <- ___(___, encoding = "UTF-8")
 # Région Bruxelles capitale
 rb_92 <- ___
 # Association des tableaux
 pop_92 <- ___
 ```
 
-<!-- Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_10`. -->
+<!--% Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_10`. Note : L'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
 
 ```{r pop10, record='RODFS', object='pop_10'}
 # Region Wallone
-rw_10 <- ___
+rw_10 <-  ___(___, encoding = "UTF-8")
 # Région Flamande
-rf_10 <- ___
+rf_10 <-  ___(___, encoding = "UTF-8")
 # Région Bruxelles capitale
 rb_10 <- ___
 # Association des tableaux
 pop_10 <- ___
 ```
 
-<!-- Fusionnez les tableaux `pop_92` et `pop_10` pour en obtenir un seul nommé `pop`. Modifiez ce dernier en transformant toutes les variables débutant par "population" pour obtenir un tableau long avec, entre autres, une colonne `year` (année de la mesure) et une colonne `n` (nombre d'individus). -->
+<!--% Fusionnez les tableaux `pop_92` et `pop_10` pour en obtenir un seul nommé `pop`. Modifiez ce dernier en transformant toutes les variables débutant par "population" pour obtenir un tableau long avec, entre autres, une colonne `year` (année de la mesure) et une colonne `n` (nombre d'individus). À la fin de ces opérations, vous devriez avoir un tableau de 6 variables et 1152 lignes. -->
 
 ```{r join, record='RODFS', object='pop'}
 # Fusion des deux tableaux
@@ -71,11 +76,14 @@ pop <- ___
 pop <- ___
 ```
 
-<!--% Convertissez la variable `year` en format numérique (astuce : si vous utilisez sseparate() -vous n'êtes pas obligé- indiquer NA pour les colonnes que vous ne souhaitez pas conserver). Modifiez également la variable `n` pour exprimer la population en millions d'individus. -->
+<!--# La première partie du code suivant est fourni. Il permet d'extraire la date d'une chaine de caractères. Par exemple, il faut donc extraire 1992 de la chaine de caractère suivante "population_au_01_janvier_1992". La fonction substr() est employée. Il y a nombreuse fonction pour obtenir le même résultat. Elle permet d'extraire un pattern d'une chaine de caractère. Dans ce cas-cis, on demande les quatre dernières valeurs numériques. Nous aurions pu obtenir un résultat similaire avec la fonction separate_().  -->
+
+<!--% Modifiez la variable `n` pour exprimer la population en millions d'individus. -->
 
 ```{r mutate, record='RODFS', object='pop'}
 # Modification de la variable `year` pour la rendre numérique
-# et conversion de `n` en millions d'individus
+pop <- mutate_(pop, year = ~ as.numeric(substr(pop$year, 26, 29)))
+# Conversion de `n` en millions d'individus
 pop <- ___
 ```
 
@@ -91,25 +99,38 @@ L'augmentation de la population belge entre 1992 et 2023 est représentée ci-de
 
 ![](figures/plot1.png)
 
-<!--% Reproduisez à l'identique le graphique ci-dessus. -->
+<!--% Reproduisez à l'identique le graphique ci-dessus. Ce graphique requiert d'obtenir une variable correspondant au nombre d'individus par année. Vous obtiendrez cette variable en calculant un tableau résumé. Nommez cette variable 'tot'. -->
 
 ```{r plot1, record='RNCS'}
-___
+pop %>.%
+  ___ %>.%
+  summarise_()  %>.%
+  chart(., ___) + 
+  ___() +
+  ___() +
+  labs(___)
 ```
 
 ![](figures/plot2.png)
 
-<!--% Reproduisez à l'identique le graphique ci-dessus. -->
+<!--% Reproduisez à l'identique le graphique ci-dessus. Ce graphique requiert d'obtenir une variable de nombre d'individus par année et par sexe. Nommez cette variable 'tot'.  Note : l'utilisation .groups = "drop" permet de ne plus tenir compte des groupes pour la suite de l'analyse. -->
 
 ```{r plot2, record='RNCS'}
-___
+pop %>.%
+  filter_(., ___) %>.%
+  ___(., ___) %>.%
+  summarise_(., ___ , .groups = "drop") %>.%
+  chart(data = ., ___) +
+  ___() +
+  ___() +
+  labs(___)
 ```
 
 <!--% Interprétez ces deux graphiques. -->
 
 ```{r plot2comment, output='asis'}
 select_answer(r"-{
-[] -  La population totale en Belgique a augmenté de plus de 15% en trois décénnies.
+[] -  La population totale en Belgique a augmenté de plus de 15% en trois décennies.
 
 [] -  Le nombre de femmes est plus élevé que le nombre d’hommes  en Région wallonne.
 [] -  Le nombre de femmes est plus faible que le nombre d’hommes  en Région wallonne.
@@ -122,10 +143,17 @@ select_answer(r"-{
 
 ![](figures/plot3.png)
 
-<!--% Reproduisez à l'identique le graphique ci-dessus. -->
+<!--% Reproduisez à l'identique le graphique ci-dessus. Ce graphique requiert d'obtenir une variable de nombre d'individus par région et par sexe. Nommez cette variable 'tot'. Note : l'utilisation de la fonction ungroup_() permet de ne plus tenir compte des groupes pour la suite de l'analyse. -->
 
 ```{r plot3, record='RNCS'}
-___
+pop %>.%
+  filter_(___) %>.%
+  ___(___) %>.%
+  summarise_(___)  %>.%
+  ungroup_(.) %>.%
+  chart(data = ., ___) +
+  ___() +
+  labs(___)
 ```
 
 <!--% Décrivez le graphique en barres réalisé ci-dessus.-->
