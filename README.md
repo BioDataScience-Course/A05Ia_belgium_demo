@@ -1,4 +1,4 @@
-Démographie en Belgique
+SDD I module 5 : Démographie en Belgique
 ================
 
 <!--DO NOT EDIT README.md -->
@@ -14,7 +14,7 @@ distribué sous licence [CC BY-NC-SA
 
 ## Objectif
 
-Ce projet est **individuel**, **court** et **cadré**. Il permettra de
+Ce projet est **individuel**, **court** et **cadré**. Il permet de
 vérifier que vous avez acquis les compétences suivantes :
 
 - Comprendre des données à l’aide de métadonnées
@@ -42,11 +42,11 @@ Note : utilisez ces tests à la fin. Concentrez-vous d’abord sur vos
 analyses, puis faites un rendu final du document lorsque tout est
 complété, et seulement après, utilisez les tests. Il est
 contre-productif d’activer les tests à chaque nouvelle ligne de code
-ajoutée dans votre document ! **Afin d’éviter tout abus d’utilisation
+ajoutée dans votre document ! **Afin d’éviter tout abus d’utilisation
 des tests, vous ne pouvez les utiliser que dix fois dans ce projet.**
 
 Assurez-vous que votre document Quarto compile sans erreurs à la fin de
-votre travail **(très important : un document qui ne compile pas sans
+votre travail **(très important : un document qui ne compile pas sans
 erreur devra être sanctionné de manière importante)**. Vérifiez aussi à
 la fin que vos derniers commits ont bien été pushés sur GitHub.
 

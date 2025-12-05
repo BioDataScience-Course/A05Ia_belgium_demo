@@ -39,7 +39,7 @@ SciViews::R(lang = "fr")
 
 Nous importons, combinons et remanions les différents jeux de données.
 
-<!--% Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale en utilisant la focntion read() du package {data.io}. Fusionnez ensuite ces trois tableaux en un seul dans `pop_92`. Note : L'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
+<!--% Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région Wallonne, en Région flamande et en Région Bruxelles-Capitale en utilisant la focntion read() du package {data.io}. Fusionnez ensuite ces trois tableaux en un seul dans `pop_92`. Note : l'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
 
 <!--# Avant chaque fusion de tableaux, vous devez avoir pris connaissance des variables des tableaux à combiner. Il est également important d’avoir une idée claire du tableau final souhaité. Cela vous permettra de choisir si la meilleure solution est l’empilement (bind_***_()) ou la fusion (***_join_()).-->
 
@@ -54,7 +54,7 @@ rb_92 <- ___
 pop_92 <- ___
 ```
 
-<!--% Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région Wallone, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_10`. Note : L'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
+<!--% Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région Wallonne, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_10`. Note : l'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
 
 ```{r pop10, record='RODFS', object='pop_10'}
 # Region Wallone
@@ -76,7 +76,7 @@ pop <- ___
 pop <- ___
 ```
 
-<!--# La première partie du code suivant est fourni. Il permet d'extraire la date d'une chaine de caractères. Par exemple, il faut donc extraire 1992 de la chaine de caractère suivante "population_au_01_janvier_1992". La fonction substr() est employée. Il y a nombreuse fonction pour obtenir le même résultat. Elle permet d'extraire un pattern d'une chaine de caractère. Dans ce cas-cis, on demande les quatre dernières valeurs numériques. Nous aurions pu obtenir un résultat similaire avec la fonction separate_().  -->
+<!--# La première partie du code suivant est fourni. Il permet d'extraire la date d'une chaine de caractères. Par exemple, il faut donc extraire 1992 de la chaine de caractère suivante "population_au_01_janvier_1992". La fonction substr() est employée. Il y a plusieurs façons de faire. Nous aurions pu obtenir un résultat similaire avec la fonction separate_().  -->
 
 <!--% Modifiez la variable `n` pour exprimer la population en millions d'individus. -->
 
@@ -113,7 +113,7 @@ pop %>.%
 
 ![](figures/plot2.png)
 
-<!--% Reproduisez à l'identique le graphique ci-dessus. Ce graphique requiert d'obtenir une variable de nombre d'individus par année et par sexe. Nommez cette variable 'tot'.  Note : l'utilisation .groups = "drop" permet de ne plus tenir compte des groupes pour la suite de l'analyse. -->
+<!--% Reproduisez à l'identique le graphique ci-dessus. Ce graphique requiert d'obtenir une variable de nombre d'individus par année et par sexe. Nommez cette variable 'tot'. Note : l'utilisation de .groups = "drop" permet de ne plus tenir compte des groupes pour la suite de l'analyse. -->
 
 ```{r plot2, record='RNCS'}
 pop %>.%
