@@ -33,7 +33,7 @@ avez à votre disposition six tableaux de données que vous allez devoir
 combiner et retravailler pour obtenir un tableau unique vous permettant
 de réaliser les graphiques demandés.
 
-<img src="figures/plot1.png" width="2400" /><img src="figures/plot2.png" width="2400" /><img src="figures/plot3.png" width="2400" />
+<img src="figures/plot1.png" alt="" width="2400" /><img src="figures/plot2.png" alt="" width="2400" /><img src="figures/plot3.png" alt="" width="2400" />
 
 Compilez la version finale au format HTML à l’aide du bouton “Rendu”.
 Vous avez une batterie de tests à votre disposition (onglet “Construire”
@@ -45,10 +45,17 @@ contre-productif d’activer les tests à chaque nouvelle ligne de code
 ajoutée dans votre document ! **Afin d’éviter tout abus d’utilisation
 des tests, vous ne pouvez les utiliser que dix fois dans ce projet.**
 
-Assurez-vous que votre document Quarto compile sans erreurs à la fin de
-votre travail **(très important : un document qui ne compile pas sans
-erreur devra être sanctionné de manière importante)**. Vérifiez aussi à
-la fin que vos derniers commits ont bien été pushés sur GitHub.
+## Évaluation : un document qui compile, sur GitHub
+
+**Un projet dont le(s) document(s) ne compile(nt) pas à partir de la
+version présente sur GitHub obtient la note de zéro pour ce travail.**
+Un document qui compile sur votre ordinateur, mais pas depuis GitHub
+(fichier oublié dans le commit, push non effectué…), est considéré comme
+ne compilant pas.
+
+Vérifiez donc à la fin de votre travail que le carnet de notes
+`belgium_notebook.qmd` produit sa version HTML sans erreur et que vos
+derniers commits ont bien été pushés sur GitHub.
 
 ## Informations sur les données
 
@@ -75,10 +82,10 @@ knitr::kable(data.io::read$csv2("data/region_meta.csv"))
 
 | variable | label | unites | type | niveaux | val. manquantes | commentaire |
 |:---|:---|:---|:---|:---|:---|:---|
-| groupe_d_ages | Catégorie d’âges | \- | facteur | ““Moins de 18 ans”” ““De 18 à 64 ans”” ““65 ans et plus”” | NA | Variable à trois niveaux |
-| region | Région | \- | facteur | dépend du fichier (voir commentaire) | NA | Attention : variable à un niveau. Exemple : ““Région de Bruxelles-Capitale”” |
-| sexe | Sexe | \- | facteur | ““Femmes”” ““Hommes”” | NA | Variable à deux niveaux |
-| nationalite | Nationalité | \- | facteur | ““Belges”” ““non-Belges”” | NA | Variable à deux niveaux |
+| groupe_d_ages | Catégorie d’âges | \- | facteur | “Moins de 18 ans” “De 18 à 64 ans” “65 ans et plus” | NA | Variable à trois niveaux |
+| region | Région | \- | facteur | dépend du fichier (voir commentaire) | NA | Attention : variable à un niveau. Exemple : “Région de Bruxelles-Capitale” |
+| sexe | Sexe | \- | facteur | “Femmes” “Hommes” | NA | Variable à deux niveaux |
+| nationalite | Nationalité | \- | facteur | “Belges” “non-Belges” | NA | Variable à deux niveaux |
 | population_au_1_janvier_XXXX | Nombre d’individus | \- | numérique | \- | NA | Dénombre la densité de population en l’an XXXX. |
 
 Les termes de la licence relative à ces données sont accessibles ici :
@@ -90,3 +97,14 @@ Dans le cadre de votre travail, vous avez le droit d’être aidé par
 l’intelligence artificielle. Le chatbot SciViews est disponible dans
 votre RStudio sur Saturn Cloud via l’addin Help. Il répond aux questions
 concernant le langage R, les statistiques et la science des données.
+
+Vous restez responsable de tout ce que contient votre document :
+vérifiez le code et les interprétations proposés par l’IA, et
+assurez-vous d’être capable de les expliquer.
+
+L’utilisation de l’IA doit être déclarée dans la sous-section
+**Déclaration sur l’utilisation de l’IA** de la partie Matériel et
+méthodes du carnet de notes `belgium_notebook.qmd` : cochez la case qui
+correspond à votre situation dans le chunk `ai_comment` (remplacez `[]`
+par `[X]`), puis précisez en dessous l’utilisation que vous avez faite
+de l’IA et citez le ou les modèles employés.

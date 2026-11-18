@@ -9,6 +9,8 @@ format:
     toc: true
 editor: visual
 lang: fr
+svbox: 2026
+vm: "Ubuntu 24.04.3 LTS"
 ---
 
 # Introduction et but
@@ -19,9 +21,7 @@ L'office belge de statistique Statbel (<https://statbel.fgov.be/fr/propos-de-sta
 
 Les données issues du site de Statbel ont été exportées le 3 décembre 2023. Les données brutes ont été en partie remaniées dans le cadre de cet exercice. Les valeurs de démographie par catégorie n'ont pas été modifiées.
 
-L'analyse est réalisée avec le [logiciel R](https://www.r-project.org) (`r R.version.string`) dans la [SciViews Box 2025](https://www.sciviews.org/software/svbox/). [Saturn Cloud](https://saturncloud.io) (Linux Ubuntu 22.04) est utilisé pour exécuter le code et compiler la version finale de ce bloc-notes.
-
-# Analyses
+L'analyse est réalisée dans la [SciViews Box `r rmarkdown::metadata$svbox`](https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (`r rmarkdown::metadata$vm`) avec le [logiciel R](https://www.r-project.org) (`r R.version.string`). Les packages {data.io} version `r packageVersion("data.io")`, {svTidy} version `r packageVersion("svTidy")` et {chart} version `r packageVersion("chart")` sont utilisés respectivement pour importer les données, les remanier et réaliser les graphiques.
 
 ```{r setup, include=FALSE}
 # Ceci est nécessaire pour les tests SDD, ne pas utiliser dans un "vrai" projet
@@ -35,16 +35,30 @@ knitr::opts_chunk$set(dev = "ragg_png")
 SciViews::R(lang = "fr")
 ```
 
+## Déclaration sur l'utilisation de l'IA
+
+<!--% Spécifiez si vous avez employé l'intelligence artificielle dans votre projet. -->
+
+```{r ai_comment, output='asis'}
+select_answer(r"-{
+[] -   Ce document a été rédigé en étant assisté par l'Intelligence Artificielle.
+[] -   Ce document a été rédigé sans recours à l'Intelligence Artificielle.}-")
+```
+
+<!-- Précisez ci-dessous l'utilisation que vous avez faite de l'IA. Citez le modèle utilisé. -->
+
+# Analyses
+
 ## Remaniement des données
 
 Nous importons, combinons et remanions les différents jeux de données.
 
-<!--% Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région Wallonne, en Région flamande et en Région Bruxelles-Capitale en utilisant la focntion read() du package {data.io}. Fusionnez ensuite ces trois tableaux en un seul dans `pop_92`. Note : l'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
+<!--% Importez les trois tableaux relatifs à la population entre 1992 et 2009 en Région wallonne, en Région flamande et en Région Bruxelles-Capitale en utilisant la fonction read() du package {data.io}. Fusionnez ensuite ces trois tableaux en un seul dans `pop_92`. Note : l'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
 
 <!--# Avant chaque fusion de tableaux, vous devez avoir pris connaissance des variables des tableaux à combiner. Il est également important d’avoir une idée claire du tableau final souhaité. Cela vous permettra de choisir si la meilleure solution est l’empilement (bind_***_()) ou la fusion (***_join_()).-->
 
 ```{r pop92, record='RODFS', object='pop_92'}
-# Region Wallone
+# Région wallonne
 rw_92 <- ___(___, encoding = "UTF-8")
 # Région Flamande
 rf_92 <- ___(___, encoding = "UTF-8")
@@ -54,10 +68,10 @@ rb_92 <- ___
 pop_92 <- ___
 ```
 
-<!--% Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région Wallonne, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_10`. Note : l'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
+<!--% Importez les trois tableaux relatifs à la population entre 2010 et 2023 en Région wallonne, en Région flamande et en Région Bruxelles-Capitale. Fusionnez ensuite ces trois tableaux en un seul dans `pop_10`. Note : l'argument encoding = "UTF-8" permet de donner le format d'encodage des variables caractères. -->
 
 ```{r pop10, record='RODFS', object='pop_10'}
-# Region Wallone
+# Région wallonne
 rw_10 <-  ___(___, encoding = "UTF-8")
 # Région Flamande
 rf_10 <-  ___(___, encoding = "UTF-8")
@@ -72,11 +86,11 @@ pop_10 <- ___
 ```{r join, record='RODFS', object='pop'}
 # Fusion des deux tableaux
 pop <- ___
-# Conversion de long à large
+# Conversion de large à long
 pop <- ___
 ```
 
-<!--# La première partie du code suivant est fourni. Il permet d'extraire la date d'une chaine de caractères. Par exemple, il faut donc extraire 1992 de la chaine de caractère suivante "population_au_01_janvier_1992". La fonction substr() est employée. Il y a plusieurs façons de faire. Nous aurions pu obtenir un résultat similaire avec la fonction separate_().  -->
+<!--# La première partie du code suivant est fournie. Il permet d'extraire la date d'une chaîne de caractères. Par exemple, il faut donc extraire 1992 de la chaîne de caractères suivante "population_au_01_janvier_1992". La fonction substr() est employée. Il y a plusieurs façons de faire. Nous aurions pu obtenir un résultat similaire avec la fonction separate_().  -->
 
 <!--% Modifiez la variable `n` pour exprimer la population en millions d'individus. -->
 
@@ -130,15 +144,16 @@ pop %>.%
 
 ```{r plot2comment, output='asis'}
 select_answer(r"-{
-[] -  La population totale en Belgique a augmenté de plus de 15% en trois décennies.
+[] -   La population totale en Belgique a augmenté de plus de 15 % en trois décennies.
+[] -   La population totale en Belgique a augmenté de plus de 25 % en trois décennies.
 
-[] -  Le nombre de femmes est plus élevé que le nombre d’hommes  en Région wallonne.
-[] -  Le nombre de femmes est plus faible que le nombre d’hommes  en Région wallonne.
-[] -  Le nombre de femmes et d’hommes est similaire en Région wallonne.
+[] -   Le nombre de femmes et d’hommes est similaire en Région wallonne.
+[] -   Le nombre de femmes est plus élevé que le nombre d’hommes en Région wallonne.
+[] -   Le nombre de femmes est plus faible que le nombre d’hommes en Région wallonne.
 
-[] -  L’augmentation au cours du temps du nombre de femmes est plus rapide que pour le nombre d’hommes.
-[] -  L’augmentation au cours du temps du nombre de femmes est plus lente que pour le nombre d’hommes . 
-[] -  L’augmentation au cours du temps du nombre de femmes et d’hommes est similaire.}-")
+[] -   L’augmentation au cours du temps du nombre de femmes et d’hommes est similaire (courbes quasi parallèles).
+[] -   L’augmentation au cours du temps du nombre de femmes est nettement plus lente que celle du nombre d’hommes.
+[] -   L’augmentation au cours du temps du nombre de femmes est nettement plus rapide que celle du nombre d’hommes.}-")
 ```
 
 ![](figures/plot3.png)
@@ -160,14 +175,14 @@ pop %>.%
 
 ```{r plot3comment, output='asis'}
 select_answer(r"-{
-[] -  Le nombre total de femmes et d’hommes est similaire dans les différentes régions.
-[] -  Ce graphique ne permet pas de déterminer si les hommes ou les femmes sont plus nombreux au total dans les différentes régions.
+[] -   Ce graphique montre que le nombre total de femmes et d’hommes est similaire dans les différentes régions.
+[] -   Ce graphique ne permet pas de déterminer si les hommes ou les femmes sont plus nombreux au total dans les différentes régions.
 
-[] - La région la plus peuplée est la Région flamande.
-[] - La région la plus peuplée est la Région wallonne.
-[] - La région la plus peuplée est la Région de Bruxelles-Capitale.
+[] -   La région la plus peuplée est la Région flamande.
+[] -   La région la plus peuplée est la Région wallonne.
+[] -   La région la plus peuplée est la Région de Bruxelles-Capitale.
 
-[] - On retrouve des proportions relatives similaires d’hommes et de femmes dans les trois régions.
-[] - On retrouve des proportions relatives différentes entre les hommes et les femmes dans les trois régions. Il y a bien plus d’hommes que de femmes en Région flamande.
-[] - On retrouve des proportions relatives différentes entre les hommes et les femmes dans les trois régions. Il y a bien plus d’hommes que de femmes en Région wallonne.}-")
+[] -   La répartition entre régions diffère entre hommes et femmes : la part des hommes est nettement plus élevée en Région flamande.
+[] -   La répartition des femmes entre les trois régions est similaire à celle des hommes.
+[] -   La répartition entre régions diffère entre hommes et femmes : la part des hommes est nettement plus élevée en Région wallonne.}-")
 ```
